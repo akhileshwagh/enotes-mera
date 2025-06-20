@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import com.example.entity.Category;
+import com.example.exception.ResourceNotFoundException;
 import com.example.dto.CategoryDto;
 import com.example.dto.CategoryResponse;
 import com.example.repository.CategoryRepository;
@@ -75,12 +76,15 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public CategoryDto getCategoryById(Integer id) {
-		Optional<Category> findByCategory = categoryRepo.findByIdAndIsDeletedFalse(id);
+	public CategoryDto getCategoryById(Integer id) throws Exception {
+		Category category = categoryRepo.findByIdAndIsDeletedFalse(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Category not found with id = " + id));
 
-		if (findByCategory.isPresent()) {
-			Category category = findByCategory.get();
-
+		if (!ObjectUtils.isEmpty(category)) {
+//			if (category.getName() == null) {
+//				throw new IllegalArgumentException("name is null");
+//			}
+			//category.getName().toLowerCase();
 			return mapper.map(category, CategoryDto.class);
 		}
 		return null;
