@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
+	
 	// <====== global handle exception======>
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> handleException(Exception e) {
