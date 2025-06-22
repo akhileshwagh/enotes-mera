@@ -14,10 +14,13 @@ import com.example.dto.CategoryDto;
 import com.example.dto.CategoryResponse;
 import com.example.repository.CategoryRepository;
 import com.example.service.CategoryService;
+import com.example.util.Validation;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
+	@Autowired
+	private Validation validation;
 	@Autowired
 	private ModelMapper mapper;
 
@@ -26,7 +29,12 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public Boolean saveCategory(CategoryDto categoryDto) {
+		
 
+		//Validation checking
+		
+		validation.categoryValidation(categoryDto);
+		
 		Category category = mapper.map(categoryDto, Category.class);
 
 		if (ObjectUtils.isEmpty(category.getId())) {
