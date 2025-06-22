@@ -18,24 +18,22 @@ import lombok.Setter;
 @Getter
 @Setter
 @MappedSuperclass
-public class BaseModel {
-	// @CreatedBy
-	// @Column(updatable = false)
+public abstract class BaseModel {
+	
+	@CreatedBy
+	@Column(updatable = false)
 	private int createdBy;
 
-	// @CreatedDate
-	// @Column(updatable = false)
+	@CreatedDate
+	@Column(updatable = false)
 	private Date createdOn;
 
-	// @LastModifiedBy
-	// @Column(insertable = false)
+	 @LastModifiedBy
+	 @Column(insertable = false)
 	private Integer updatedBy;
 
-	// @LastModifiedDate
-	// @Column(insertable = false)
+	 @LastModifiedDate
+	 @Column(insertable = false)
 	private Date updatedOn;
-	private Boolean isActive;
-
-	private Boolean isDeleted;
 
 }

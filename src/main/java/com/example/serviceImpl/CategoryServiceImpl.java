@@ -29,18 +29,17 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public Boolean saveCategory(CategoryDto categoryDto) {
-		
 
-		//Validation checking
-		
+		// Validation checking
+
 		validation.categoryValidation(categoryDto);
-		
+
 		Category category = mapper.map(categoryDto, Category.class);
 
 		if (ObjectUtils.isEmpty(category.getId())) {
 
 			category.setIsDeleted(false);
-			category.setCreatedBy(1);
+			// category.setCreatedBy(1);
 			category.setCreatedOn(new Date());
 		} else {
 			updateCategory(category);
@@ -60,8 +59,8 @@ public class CategoryServiceImpl implements CategoryService {
 			category.setCreatedOn(existingCategory.getCreatedOn());
 			category.setIsDeleted(existingCategory.getIsDeleted());
 
-			category.setUpdatedBy(1);
-			category.setUpdatedOn(new Date());
+//			category.setUpdatedBy(1);
+//			category.setUpdatedOn(new Date());
 		}
 	}
 
@@ -92,7 +91,7 @@ public class CategoryServiceImpl implements CategoryService {
 //			if (category.getName() == null) {
 //				throw new IllegalArgumentException("name is null");
 //			}
-			//category.getName().toLowerCase();
+			// category.getName().toLowerCase();
 			return mapper.map(category, CategoryDto.class);
 		}
 		return null;
