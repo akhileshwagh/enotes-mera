@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import com.example.entity.Category;
+import com.example.exception.ExistDataException;
 import com.example.exception.ResourceNotFoundException;
 import com.example.dto.CategoryDto;
 import com.example.dto.CategoryResponse;
@@ -33,6 +34,14 @@ public class CategoryServiceImpl implements CategoryService {
 		// Validation checking
 
 		validation.categoryValidation(categoryDto);
+
+		// check existing category
+
+		Boolean exist = categoryRepo.existsByName(categoryDto.getName().trim());
+
+		if (exist) {
+           throw  new ExistDataException("Category already exist");
+		}
 
 		Category category = mapper.map(categoryDto, Category.class);
 
